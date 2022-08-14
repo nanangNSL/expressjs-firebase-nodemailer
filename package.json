@@ -4,8 +4,7 @@
   "description": "for suport tentang dapur",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "start:dev": "nodemon app.js"
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +26,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-firebase-storage": "^3.0.3",
     "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.19",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "redux-persist-cookie-storage": "^1.0.0",
@@ -40,8 +40,5 @@
   "bugs": {
     "url": "https://github.com/nanangNSL/expressjs-firebase-nodemailer/issues"
   },
-  "homepage": "https://github.com/nanangNSL/expressjs-firebase-nodemailer#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.19"
-  }
+  "homepage": "https://github.com/nanangNSL/expressjs-firebase-nodemailer#readme"
 }
