@@ -1,8 +1,9 @@
+require("dotenv").config();
 const { BUCKET_NAME } = process.env;
 
-import multer from "multer";
-import firebaseStorage from "multer-firebase-storage";
-import firebaseInstance, { storage as _storage } from "../utils/FirebaseInstance";
+const multer = require("multer");
+const firebaseStorage = require("multer-firebase-storage");
+const firebaseInstance = require("../utils/FirebaseInstance");
 
 const upload = (prefix, folder, field) => {
   return multer({
@@ -51,7 +52,7 @@ const uploadVideo = (prefix, folder, field) => {
 };
 
 const deleteFile = (imageUrl) => {
-  return _storage().bucket(BUCKET_NAME).file(imageUrl).delete();
+  return firebaseInstance.storage().bucket(BUCKET_NAME).file(imageUrl).delete();
 };
 
-export default { upload, uploadVideo, deleteFile };
+module.exports = { upload, uploadVideo, deleteFile };

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Recipe = require("../controllers/Recipe");
-const { uploadVideo } = require("../middlewares/multer").default;
+const { uploadVideo } = require("../middlewares/multer");
 
 router.route("/").get(Recipe.find)
 router.route("/home").get(Recipe.getAll)
