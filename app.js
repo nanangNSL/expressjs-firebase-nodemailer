@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./models");
 const syncdb = false;
+
 const http = require('http');
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
@@ -60,7 +61,7 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(process.env.ENPOINT_PORT || process.env.PORT, () => {
+server.listen(process.env.PORT || 7000, () => {
   console.log(
     `server listening on http://localhost:${process.env.ENPOINT_PORT}`
   );
