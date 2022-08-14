@@ -41,9 +41,7 @@ const corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions);
 };
 app.use(cors(corsOptionsDelegate));
-app.get('*', (req, res) => {
-  res.send('Hello World!')
-})
+
 
 
 io.on("connection", (socket) => {
