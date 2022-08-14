@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
 
 server.listen(process.env.PORT || 7000, () => {
   console.log(
-    `server listening on http://localhost:${process.env.ENPOINT_PORT}`
+    `server listening on http://localhost: ${process.env.PORT} || 7000`
   );
   db.sequelize
     .sync({ force: syncdb })
