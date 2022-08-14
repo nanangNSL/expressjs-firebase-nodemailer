@@ -17,10 +17,6 @@ const recipe = (sequelize, Sequelize) => {
     image: {
       type: Sequelize.STRING,
       alloNull: true,
-    },
-    video: {
-      type: Sequelize.STRING,
-      alloNull: true,
     }
   });
 

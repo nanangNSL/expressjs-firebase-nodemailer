@@ -6,4 +6,5 @@ const { verifyToken } = require("../middlewares/verifyToken");
 router.route("/").post(upload("test", "images", "image"),Recipe.Post)
 router.route("/:id").get(Recipe.getRecipeById)
 
+
 module.exports = router;    

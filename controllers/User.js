@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Users } = require("../models");
+const { Users, Save, Like, Comment } = require("../models");
 const { hashSync } = require("bcrypt");
 
 exports.Update = async (req, res) => {
@@ -44,7 +44,19 @@ exports.UpdateProfile = async (req, res) => {
 exports.UsersById = async (req, res) => {
   const { id } = req.params;
   try {
-    const find = await Users.findByPk(id);
+    const find = await Users.findOne({
+      where: { id: id },
+      include:[
+        {
+          model: Like,
+          required: false,
+        },
+        {
+          model: Save,
+          required: false,
+        }
+      ]
+    });
     if (!find) {
       res.send(401, { mesage: "profile not found" });
     } else {

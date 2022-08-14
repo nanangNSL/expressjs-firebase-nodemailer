@@ -8,6 +8,14 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./models");
 const syncdb = false;
+const http = require('http');
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 
 
 app.use(cors());
@@ -28,13 +36,31 @@ const corsOptionsDelegate = function (req, callback) {
     corsOptions = { origin: true };
   } else {
     corsOptions = { origin: false };
-  }
+  } 
   callback(null, corsOptions);
 };
 app.use(cors(corsOptionsDelegate));
 
 
-app.listen(process.env.ENPOINT_PORT, () => {
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+
+server.listen(process.env.ENPOINT_PORT, () => {
   console.log(
     `server listening on http://localhost:${process.env.ENPOINT_PORT}`
   );

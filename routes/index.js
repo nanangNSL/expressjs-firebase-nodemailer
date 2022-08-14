@@ -4,5 +4,6 @@ module.exports = (app) => {
   app.use("/test-multer", require("./multer"));
   app.use("/post", require("./Recipe"))
   app.use("/search", require("./Search.js"))
+  app.use("/room", require("./Room"))
 
 };
