@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(process.env.ENPOINT_PORT, () => {
+server.listen(process.env.ENPOINT_PORT || process.env.PORT, () => {
   console.log(
     `server listening on http://localhost:${process.env.ENPOINT_PORT}`
   );
