@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./models");
 const syncdb = false;
+const PORT = process.env.PORT || 7000;
 
 const http = require('http');
 const server = http.createServer(app);
@@ -62,9 +63,9 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(process.env.PORT || 7000, () => {
+server.listen(PORT, () => {
   console.log(
-    `server listening on http://localhost: ${process.env.PORT} || 7000`
+    `server listening on http://localhost: ${PORT}`
   );
   db.sequelize
     .sync({ force: syncdb })
