@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const Sequelize = require("sequelize");
 let sequelize;
-if(process.env.MODE === "production") {
+if(process.env.NODE_ENV === "production") {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialectOptions: {
       ssl: {
