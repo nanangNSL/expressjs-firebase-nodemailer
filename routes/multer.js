@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { uploadVideo } = require("../middlewares/multer");
+const { uploadVideo } = require("../middlewares/multer").default;
 
 router.route("/").post(uploadVideo("test", "video", "file"), (req, res) => {
   try {

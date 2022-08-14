@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Recipe = require("../controllers/Recipe");
-const { upload, uploadVideo } = require("../middlewares/multer");
+const { upload, uploadVideo } = require("../middlewares/multer").default;
 const { verifyToken } = require("../middlewares/verifyToken");
 
 router.route("/").post(upload("test", "images", "image"),Recipe.Post)
