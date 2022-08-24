@@ -1,12 +1,17 @@
 require("dotenv").config();
 const { Recipe, Like, Comment, Save, Video } = require("../models");
 const { Op } = require("sequelize");
+const cloudinary = require('../utils/cloudinary');
 
 exports.Post = async (req, res) => {
   try {
+    const path = req.file.path
+    const dataImages =  await cloudinary.uploader.upload(path, {
+         folder: 'images'
+       });
     const postData = {
       ...req.body,
-      image: req.file.publicUrl,
+      image: dataImages.secure_url,
     };
     const postUpload = await Recipe.create(postData);
     res.status(200).send(postUpload);
@@ -169,9 +174,14 @@ exports.Unsave = async (req, res) => {
 
 exports.InsertVideo = async (req, res) => {
   try {
+    const path = req.file.path;
+    const dataVideo = await cloudinary.uploader.upload(path, {
+      folder: "video",
+      resource_type: "video",
+    });
     const postData = {
       ...req.body,
-      video: req.file.publicUrl,
+      video: dataVideo.secure_url,
     };
     const data = await Video.create(postData);
     if (!data) return res.send({ message: "Error creating video" });
@@ -180,3 +190,38 @@ exports.InsertVideo = async (req, res) => {
     res.send({ message: error.message });
   }
 };
+
+exports.getRecipeByLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const findRecipe = await Recipe.findAll({
+      include: [
+        {
+          model: Like,
+          where: { userId : id}
+        }
+      ]
+    });
+    res.send(findRecipe);
+    console.log(findRecipe);
+}catch(error) {
+res.send({message: 'recipe', error})
+}
+}
+exports.getRecipeBySave = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const findRecipe = await Recipe.findAll({
+      include: [
+        {
+          model: Save,
+          where: { userId : id}
+        }
+      ]
+    });
+    res.send(findRecipe);
+    console.log(findRecipe);
+}catch(error) {
+res.send({message: 'recipe', error})
+}
+}

@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { Users, Save, Like, Comment } = require("../models");
 const { hashSync } = require("bcrypt");
+const cloudinary = require('../utils/cloudinary');
+
 
 exports.Update = async (req, res) => {
   const { id } = req.params;
@@ -25,10 +27,14 @@ exports.Update = async (req, res) => {
 exports.UpdateProfile = async (req, res) => {
   const { id } = req.params;
   try {
+    const path = req.file.path
+    const dataImages =  await cloudinary.uploader.upload(path, {
+         folder: 'User'
+       });
     const find = await Users.findByPk(id);
     if (!find) return res.send(401, { mesage: "profile not found" });
     await Users.update(
-      { image: req.file.publicUrl },
+      { image: dataImages.secure_url},
       {
         where: {
           id: id,
