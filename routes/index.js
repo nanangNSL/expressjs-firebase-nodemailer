@@ -1,4 +1,3 @@
-const { apps } = require("firebase-admin");
 
 module.exports = (app) => {
   app.use("/auth", require("./Auth"));
