@@ -62,4 +62,4 @@ exports.UploadImage = multer({
   storage: storageServer,
   fileFilter: fileFilterImages,
   limits: { fileSize: 1 * 1024 * 1024 }
-}).single('images');
+}).single('image');

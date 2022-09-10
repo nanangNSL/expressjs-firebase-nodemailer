@@ -9,6 +9,7 @@ exports.Post = async (req, res) => {
     const dataImages =  await cloudinary.uploader.upload(path, {
          folder: 'images'
        });
+       console.log(dataImages)
     const postData = {
       ...req.body,
       image: dataImages.secure_url,
@@ -60,7 +61,7 @@ exports.find = async (req, res) => {
     },
     offset: offset,
     limit: limit,
-    order: [["id", "ASC"]],
+    order: [["id", "DESC"]],
   });
   res.json({
     result: result,
@@ -105,15 +106,15 @@ exports.getAll = async (req, res) => {
       include: [
         {
           model: Like,
-          required: true,
+          required: false,
         },
         {
           model: Comment,
-          required: true,
+          required: false,
         },
         {
           model: Video,
-          required: true,
+          required: false,
         },
       ],
     });
@@ -173,6 +174,7 @@ exports.Unsave = async (req, res) => {
 };
 
 exports.InsertVideo = async (req, res) => {
+  console.log(req)
   try {
     const path = req.file.path;
     const dataVideo = await cloudinary.uploader.upload(path, {

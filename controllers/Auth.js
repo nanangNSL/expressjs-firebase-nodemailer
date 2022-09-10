@@ -7,6 +7,7 @@ const { sendOtp } = require("../utils/sendOtp")
 
 exports.Register = async (req, res) => {
   const { password, confPassword } = req.body;
+  console.log(req.body)
   if(confPassword !== password) return res.sendStatus(400, {message: "Password and Confirm Password are not the same"});
   try {
     const newUser = { ...req.body, password: hashSync(password, 10) };

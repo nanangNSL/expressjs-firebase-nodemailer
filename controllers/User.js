@@ -27,12 +27,13 @@ exports.Update = async (req, res) => {
 exports.UpdateProfile = async (req, res) => {
   const { id } = req.params;
   try {
+    const find = await Users.findByPk(id);
+    if (!find) return res.status(401).send({ mesage: "profile not found" });
     const path = req.file.path
     const dataImages =  await cloudinary.uploader.upload(path, {
          folder: 'User'
        });
-    const find = await Users.findByPk(id);
-    if (!find) return res.send(401, { mesage: "profile not found" });
+   console.log(dataImages)
     await Users.update(
       { image: dataImages.secure_url},
       {
